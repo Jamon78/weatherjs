@@ -1,17 +1,42 @@
-// Init weather object
+// Init Storage
+const storage = new Storage();
+// Get Stored location data
+const weatherLocation = storage.getLocationData();
 
-const weather = new Weather('Helsinki', 'fi');
+// Init weather object
+const weather = new Weather(weatherLocation.city, weatherLocation.country);
+
+const ui = new UI();
 
 // Get weather on Dom load
-//weather.changeLocation('kerava', 'fi');
-// document.addEventListener('DOMContentLoaded', getWeather);
+document.addEventListener('DOMContentLoaded', getWeather());
 
-weather
-  .getWeather()
-  .then(results => {
-    console.log(results);
-  })
-  .catch(err => console.log(err));
+// Change Location Event
+document.getElementById('w-change-btn').addEventListener('click', e => {
+  const city = document.getElementById('city').value;
+  const country = document.getElementById('country').value;
+
+  // Change location
+  weather.changeLocation(city, country);
+
+  // Set location in LS
+  storage.setLocationData(city, country);
+
+  // Get and display Weather
+  getWeather();
+
+  // Close Modal
+  $('#locModal').modal('hide');
+});
+
+function getWeather() {
+  weather
+    .getWeather()
+    .then(results => {
+      ui.paint(results);
+    })
+    .catch(err => console.log(err));
+}
 
 function convertKelvinToCelsius(kelvin) {
   if (kelvin < 0) {

@@ -4,7 +4,7 @@ class UI {
     this.desc = document.getElementById('w-desc');
     this.string = document.getElementById('w-string');
     this.details = document.getElementById('w-details');
-    this.icon = document.getElementById('w-icon');
+    //this.icon = document.getElementById('w-icon');
     this.humidity = document.getElementById('w-humidity');
     //this.feelsLike = document.getElementById('w-feels-like');
     //this.dewpoint = document.getElementById('w-dewpoint');
@@ -20,6 +20,6 @@ class UI {
     )}\u00B0C`;
     this.humidity.textContent = `Humidity: ${weather.main.humidity}%`;
     this.windSpeed.textContent = `Wind Speed: ${weather.wind.speed} mps`;
-    this.windDirection = `Wind Direction: ${weather.wind.deg} degrees`;
+    this.windDirection.textContent = `Wind Direction: ${weather.wind.deg} degrees`;
   }
 }
